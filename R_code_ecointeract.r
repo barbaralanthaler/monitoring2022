@@ -50,3 +50,7 @@ plot(cad,zin)
 attach(meuse)
 #it is then possible to use directly the two columns for the plot:
 plot(cadmium,zinc)
+#it is also possible to detach with detach(meuse)
+
+#To produce scatterplt matrices:
+pairs(meuse)
