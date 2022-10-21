@@ -32,3 +32,13 @@ ggplot(d, aes(x=virus, y=death)) + geom_point() + geom_line()
 
 #Or polygons: 
 ggplot(d, aes(x=virus, y=death)) + geom_polygon()
+
+#We want to import data from outside R (the data is in the folder lab placed in my username), so to connects the csv file with R (set working directory):
+setwd("/Users/barbara/lab/")
+
+#To put the data inside R we use read.table(file, header = TRUE or FALSE (for default it is false. TRUE means if the names of the columns are present), sep (separating symbol).
+#We assign the table to an object:
+covid <- read.table("covid_agg.csv")
+
+
+
