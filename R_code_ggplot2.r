@@ -40,5 +40,16 @@ setwd("/Users/barbara/lab/")
 #We assign the table to an object:
 covid <- read.table("covid_agg.csv")
 
+#R does not consider the names of the colums (they are considered as data), because header was FALSE (shorten the code T and F can be used):
+covid <- read.table("covid_agg.csv", header = TRUE)
+
+#Summary of the data:
+summary(covid)
+
+#We can use ggplot to make the plot os the points:
+ggplot(covid, aes(x=lon, y=lat)) + geom_point(col="red")
+
+#It is possible to change the size of points in respect to a specific variable
+ggplot(covid, aes(x=lon, y=lat, size=cases)) + geom_point(col="red")
 
 
