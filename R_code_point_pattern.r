@@ -33,3 +33,32 @@ points(covid_planar, pch=17, col="blue")
 cln <- colorRampPalette(c("darkgoldenrod1", "deeppink", "darkslateblue", "coral"))(100)
 plot(density_map, col=cl)
 points(covid_planar, pch=8, col="darkblue")
+
+#Use the rgdal package, the geogdata abstraction library:
+library(rgdal)
+
+#To upload the coastlines (read OGR vector maps into spatial objects):
+coastlines <- readOGR("ne_10m_coastline.shp")
+
+plot(covid_planar)
+
+#To plot both the covid planar and the coastlines: 
+plot(coastlines, add=T)
+
+#To also add the density map: 
+plot(density_map)
+points(covid_planar, pch=19)
+plot(coastlines, add=T, color="yellow")
+
+#To change the color use colorRampPalette
+
+#Now we create an abbundance data
+#Marks are used to explain to the sofware where the data for abbundance is (cases is the variable we want to use):
+marks(covid_planar) <- cases
+
+#The function Smooth is used for the interpolation:
+cases_map <- Smooth(covid_planar)
+
+plot(cases_map)
+points(covid_planar)
+plot(coastlines, add=T)
