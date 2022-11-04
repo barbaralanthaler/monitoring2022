@@ -27,6 +27,25 @@ plot(multivar)
 
 # To see the different biomes in the graph, it is possible to make a circle around the species belongin to the same biome:
 attach(biomes_types)
+# ordiellipse function: display Groups or Factor Levels in Ordination Diagrams 
+# "type" indicates the column the biomes_types table
+# "kind" is the type of ellipse
+# "lwd" is the line width
+ordiellipse(multivar, type, col=c("black","red","green","blue"), kind="ehull", lwd=3)
 
-# ordiellipse function: display Groups or Factor Levels in Ordination Diagrams (type indicates that we use the type of biomes):
-ordiellipse(multivar, type, col=c("black","red","green","blue"), kind = "ehull", lwd=3)
+# To lable the biomes we use the ordispider function:
+ordispider(multivar, type, col=c("black","red","green","blue"), label=T)
+
+# To export the data, we use the pdf function "name.pdf":
+pdf("multivar.pdf")
+# We have to put inside everything we want inside the pdf:
+plot(multivar)
+ordiellipse(multivar, type, col=c("black","red","green","blue"), kind="ehull", lwd=3)
+ordispider(multivar, type, col=c("black","red","green","blue"), label=T)
+# To close the pdf:
+dev.off()
+
+# Exercise: export a pdf with only the multivar plot
+pdf("secondoutput.pdf")
+plot(multivar)
+dev.off()
