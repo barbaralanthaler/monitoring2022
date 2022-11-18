@@ -102,5 +102,30 @@ plotRGB(p224r63_1988, r=3, g=2, b=4, stretch="lin")
 plotRGB(p224r63_2011, r=3, g=2, b=4, stretch="lin")
 # When the near infrared is in the blu channel we see the bare soil
 
-# It is possible to create one image which is the difference between the two images:
+# Multitemporal analysis: compare the two images thanks to the difference between the near infrared reflection of the two images
+difnir <- p224r63_1988[[4]] - p224r63_2011[[4]]
+cl <- colorRampPalette(c("orange", "blue", "yellow", "black"))(100)
+plot(difnir, col=cl)
+
+
+
+# Difference Vegetation index (DVI = NIR - red) 
+# High value means healthy vegetation (high NIR reflectance and low red reflecntence), low value means unhealthy/no vegetation (for example water) 
+
+# To calculate the DVI of 2011:
+dvi2011 <- p224r63_2011[[4]] - p224r63_2011[[3]]
+
+# DVI for 1988:
+dvi1988 <- p224r63_1988[[4]] - p224r63_1988[[3]]
+
+# Difference between the two DIVs: if the value is high the vegetation is not present or healthy anymore
+diffdvi <- dvi1988 - dvi2011
+cl <- colorRampPalette(c("blue", "white", "red"))(100)
+plot(diffdvi, col=cl)
+# The red parts indicate a loss of earthly vegetation, the blue parts indicate an increase in earthly vegetation
+
+
+
+
+
 
