@@ -7,7 +7,7 @@ library(raster)
 setwd("/Users/barbara/lab/")
 
 # brick function: creates a RasterBrick object (formed by different layers)
- p224r63_2011 <- brick("p224r63_2011_masked.grd")
+p224r63_2011 <- brick("p224r63_2011_masked.grd")
 
 # To show the differents bands: 
 plot(p224r63_2011)
@@ -82,3 +82,25 @@ dev.off
 par(mfrow=c(2, 1))
 plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="lin")
 plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="hist")
+
+
+
+# Comparison between the image of 1988 and 2011:
+
+# Import the data of the two years
+p224r63_1988 <- brick("p224r63_1988_masked.grd")
+p224r63_2011 <- brick("p224r63_2011_masked.grd")
+
+plotRGB(p224r63_1988, r=3, g=2, b=1, stretch="lin")
+# To better see the differences, the infrared is used:
+plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="lin")
+plotRGB(p224r63_1988, r=3, g=4, b=2, stretch="lin")
+
+# Exercise: make a multiframe with two rows and 1 column plotting the 1988 and 2011 images
+par(mfrow=c(2, 1))
+plotRGB(p224r63_1988, r=3, g=2, b=4, stretch="lin")
+plotRGB(p224r63_2011, r=3, g=2, b=4, stretch="lin")
+# When the near infrared is in the blu channel we see the bare soil
+
+# It is possible to create one image which is the difference between the two images:
+
