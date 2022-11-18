@@ -64,3 +64,21 @@ plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="lin")
 # For example, we remove the blue band:
 plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="lin")
 # This makes everything that reflects in infrared red (it takes the colour of the component)
+# It is possible to put the near infrared band into another component to see the changes:
+plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="lin")
+# The reflection in infrared will be coloured green in this case
+# To see the bare soil:
+plotRGB(p224r63_2011, r=3, g=2, b=4, stretch="lin")
+
+# Exercise: plot the previous four manners in single multiframe:
+par(mfrow=c(2, 2))
+plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="lin")
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="lin")
+plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="lin")
+plotRGB(p224r63_2011, r=3, g=2, b=4, stretch="lin")
+dev.off
+
+# Histogram stretching
+par(mfrow=c(2, 1))
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="lin")
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="hist")
