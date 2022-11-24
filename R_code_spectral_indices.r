@@ -31,3 +31,48 @@ cl <- colorRampPalette(c("darkblue","yellow","red","black"))(100)
 plot(dvi2006, col=cl)
 # Low vegetation = low color (darblue-yellow)
 
+
+# Threshold for trees
+# library for classification:
+library(RStoolbox)
+
+#unsuperClass function: Unsupervised Classification. The software decides the threshold.
+# It is possible to use the original image or the DVI
+
+# For 1992
+# d1c: deforestation first classification
+d1c <- unsuperClass(l1992, nClasses=2)
+# To plot the map:
+plot(d1c$map)
+
+#freq function: generate frequency tables (how many pixel belong to each class)
+# class 1: tropical forest
+# class 2: human impact
+freq(d1c$map)
+#   value  count
+# [1,]     1 304490
+# [2,]     2 36802
+
+# Calculate the proportion of pixels:
+# Forest: 
+f1992 <- 304490 / (304490+36802) # = 0.8921686 (in 1992 90% of the pixel were forest)
+# Human impact
+h1992 <- 36802 / (304490+36802) # = 0.1078314
+
+# For 2006
+# d2c: deforestation second classification
+d2c <- unsuperClass(l2006, nClasses=2)
+plot(d2c$map)
+# class 1: forest
+# class 2: human impact
+# the classes are not always the same, check with the graph (class 1 has the color of the value 1, class two the color of the value 2)
+freq(d2c$map)
+#   value  count
+# [1,]     1 179154
+# [2,]     2 163572
+# Forest proportion in 2006:
+f2006 <- 179154 / (179154+163572) # =0.5227324
+# Human impact proportion in 2006:
+h2006 <- 163572 / (179154+163572) # =0.4772676
+
+
