@@ -1,8 +1,10 @@
 # Calculate vegetation indices from remote sensing
 
-library(raster)     #for classification
+library(raster)     
+library(RStoolbox)  #for classification
 library(ggplot2)    # for the final histogram plot
 library(patchwork)  #combine separate ggplots into the same graphic
+library(viridis)
 
 # Upload the data
 setwd("/Users/barbara/lab/") 
@@ -35,8 +37,6 @@ plot(dvi2006, col=cl)
 
 
 # Threshold for trees
-# library for classification:
-library(RStoolbox)
 
 #unsuperClass function: Unsupervised Classification. The software decides the threshold.
 # It is possible to use the original image or the DVI
@@ -110,6 +110,43 @@ p1 + p2
 
 # To put one plot on top of the other
 p1 / p2 
+
+
+
+# ggplot examples
+# using defor1
+# Plot RGB (band 1 = NIR
+plotRGB(l1992, r=1, g=2, b=3, stretch="lin")
+ggRGB(l1992, 1, 2, 3)   # same result, but more simple!
+
+# Plot the DVI
+dvi1992 <- l1992[[1]] - l1992[[2]]
+plot(dvi1992)
+
+ggplot() +
+geom_raster(dvi1992, mapping=aes(x=x, y=y, fill=layer)) +         # fill = name of the layer
+scale_fill_viridis(option="viridis")                              # viridis is a colorampalette
+
+# Example for other colors
+ggplot() +
+geom_raster(dvi1992, mapping=aes(x=x, y=y, fill=layer)) +        
+scale_fill_viridis(option="magma")      
+
+# Exercise: with patchwork package, put two graphs one beside the other with two different viridis coloramps
+p1 <- ggplot() +
+geom_raster(dvi1992, mapping=aes(x=x, y=y, fill=layer)) +         
+scale_fill_viridis(option="mako") 
+# + ggtitle("") to add a title
+
+p2 <- ggplot() +
+geom_raster(dvi1992, mapping=aes(x=x, y=y, fill=layer)) +        
+scale_fill_viridis(option="plasma")  
+
+p1 + p2
+
+
+
+
 
 
 
