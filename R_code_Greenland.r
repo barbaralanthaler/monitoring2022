@@ -75,3 +75,11 @@ scale_fill_viridis(option="inferno", alpha=0.8) +
 ggtitle("Temperature difference between 2000 and 2015")
 
 p1 + p2 + p3
+
+
+plotRGB(TGr, r=1, g=2, b=4, stretch="lin")
+#r=1 -> everything red has a high temperature in 2000
+#g=2 -> high temperatures in 2005 become green
+#b=4 -> high temperatures in 2015 become blue
+
+# colorist package: Coloring Wildlife Distributions in Space-Time (complex)
