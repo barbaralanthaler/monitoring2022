@@ -1,4 +1,4 @@
-# R code for species distribution modelling
+# R code for species distribution modelling: modeling the potential distribution of species given environmental conditions
 
 # packages needed:
 library(sdm) # package for species distribution modelling
@@ -7,32 +7,38 @@ library(rgdal) # provides bindings to the 'Geospatial' Data Abstraction Library
 
 file <- system.file("external/species.shp", package="sdm") 
   # the system.file function finds the full file names of files in packages etc.
+    # external is the folder of the smd package containig the species.shp file
+
+file # reports the path to the data
+
+# translate the path into a file 
  species <- shapefile(file)
   # the shapefile function reads or writes a shapefile
-    #shapefile: simple, nontopological format for storing the geometric location and attribute information of geographic features. 
-      #Geographic features in a shapefile can be represented by points, lines, or polygons (areas).
+    # shapefile: simple, nontopological format for storing the geometric location and attribute information of geographic features. 
+      # geographic features in a shapefile can be represented by points, lines, or polygons (areas).
       
 # looking at the set
 species
 #plot
 plot(species)
 
-# looking at the occurrences
+# Subset
+  # looking at all the occurrences
 species$Occurrence
+  # Subset only those points meaning presence (0)
+presences <- species[species$Occurrence == 1,]
+absences <- species[species$Occurrence == 0,]
 
-# plotting the occuruncece (1) and non occurrence (0)
-plot(species[species$Occurrence == 1,],col='blue',pch=16)
-  # to add the non occurrence (0) use points function: adds point to a plot
-points(species[species$Occurrence == 0,],col='red',pch=16)
+plot(presences, col = "blue", pch = 19)
+points(absences, col = "red", pch = 19) # adds point to the plot
 
-# predictors: look at the path
-path <- system.file("external", package="sdm")
+# Upload the environmental conditions (predictors)
+path <- system.file("external", package = "sdm")
+  #path to the external folder
+  # in the folder the predicors are stored with .asc 
 # list the predictors
-lst <- list.files(path=path, pattern='asc$', full.names = T)
-  # the list.files function produces a character vector of the names of files or directories in the named directory
-    # path: a character vector of full path names; the default corresponds to the working directory.
-    # pattern: an optional regular expression. Only file names which match the regular expression will be returned
-    # full.names: a logical value. If TRUE, the directory path is prepended to the file names to give a relative file path. If FALSE, the file names (rather than paths) are returned.
+lst <- list.files(path = path, pattern = "asc$", full.names = T)
+  # the list.files function produces a character vector of the names of files or directories in the named directory   
 lst
   #[1] "/Library/Frameworks/R.framework/Versions/4.2/Resources/library/sdm/external/elevation.asc"    
   #[2] "/Library/Frameworks/R.framework/Versions/4.2/Resources/library/sdm/external/precipitation.asc"
@@ -41,7 +47,7 @@ lst
 
 # Create a RasterStack object
 preds <- stack(lst)
-  # A RasterStack is a collection of RasterLayer objects with the same spatial extent and resolution. 
+  # this creates a RasterStack project with four layers
 
 # Plot preds
 cl <- colorRampPalette(c('blue','orange','red','yellow')) (100)
@@ -63,23 +69,27 @@ points(species[species$Occurrence == 1,], pch=16)
 
 # Create the species distribution model
   # set the data for the sdm
-datasdm <- sdmData(train=species, predictors=preds)
-  # sdmData function: Creates a sdmdata objects that holds species (single or multiple) and explanatory variates.
-  # In addition, more information such as spatial coordinates, time, grouping variables, and metadata (e.g., author, date, reference, etc.) can be included.
-    # train: Training data containing species observations as a data.frame or SpatialPoints or SpatialPointsDataFrames.
+datasdm <- sdmData(train = species, predictors = preds)
+  # sdmData function: creates a sdmdata objects that holds species (single or multiple) and explanatory variates.
+    # train: Training data containing species observations 
     # predictors: Explanatory variables (predictors), defined as a raster object.
+
 # model
-m1 <- sdm(Occurrence ~ elevation + precipitation + temperature + vegetation, data=datasdm, methods = "glm")
-  # sdm function: Fit and evaluate species distribution models.
+m1 <- sdm(Occurrence ~ elevation + precipitation + temperature + vegetation, data = datasdm, methods = "glm")
+  # sdm function: fit and evaluate species distribution models
+  # create the logistic model for all the variables together
+      # OCCURRENCE (y)
+      # ~: =
     # data: a sdmdata object created using sdmData function
-    # methods: Character. Specifies the methods, used to fit the models.
+    # methods: glm (generalized lineard method)
 # make the raster output layer
-p1 <- predict(m1, newdata=preds)
-  # predict function: make a Raster or matrix object (depending on input dataset) with predictions from one or several fitted models in sdmModels object.
+p1 <- predict(m1, newdata = preds)
+  # predict function: predict the spread of the speices based on the model and the data
 
 # plot the output
 plot(p1, col=cl)
-points(species[species$Occurrence == 1,], pch=16)
+  # predicts the prediction of spread of the species
+points(presences)
 
 # add to the stack
 s1 <- stack(preds,p1)
