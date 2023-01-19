@@ -36,7 +36,7 @@ points(absences, col = "red", pch = 19) # adds point to the plot
 path <- system.file("external", package = "sdm")
   #path to the external folder
   # in the folder the predicors are stored with .asc 
-# list the predictors
+# list the predictors (explanatory variables)
 lst <- list.files(path = path, pattern = "asc$", full.names = T)
   # the list.files function produces a character vector of the names of files or directories in the named directory   
 lst
@@ -71,14 +71,12 @@ points(species[species$Occurrence == 1,], pch=16)
   # set the data for the sdm
 datasdm <- sdmData(train = species, predictors = preds)
   # sdmData function: creates a sdmdata objects that holds species (single or multiple) and explanatory variates.
-    # train: Training data containing species observations 
-    # predictors: Explanatory variables (predictors), defined as a raster object.
 
 # model
 m1 <- sdm(Occurrence ~ elevation + precipitation + temperature + vegetation, data = datasdm, methods = "glm")
   # sdm function: fit and evaluate species distribution models
   # create the logistic model for all the variables together
-      # OCCURRENCE (y)
+      # Occurrence (y)
       # ~: =
     # data: a sdmdata object created using sdmData function
     # methods: glm (generalized lineard method)
