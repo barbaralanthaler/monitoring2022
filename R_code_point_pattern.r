@@ -1,7 +1,9 @@
 # Point pattern analysy for population ecology
 
-#We need the spastat library
+# Libraries needed
 library(spatstat)
+library(rgdal)
+
 
 #Use of working direcotory (to recall the data from the lab folder):
 setwd("/Users/barbara/lab/")
@@ -34,8 +36,6 @@ cln <- colorRampPalette(c("darkgoldenrod1", "deeppink", "darkslateblue", "coral"
 plot(density_map, col=cl)
 points(covid_planar, pch=8, col="darkblue")
 
-#Use the rgdal package, the geogdata abstraction library:
-library(rgdal)
 
 #To upload the coastlines (read OGR vector maps into spatial objects):
 coastlines <- readOGR("ne_10m_coastline.shp")
