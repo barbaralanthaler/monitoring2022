@@ -1,4 +1,4 @@
-# Point pattern analysy for population ecology
+# Point pattern analysis for population ecology
 
 # Libraries needed
 library(spatstat)
