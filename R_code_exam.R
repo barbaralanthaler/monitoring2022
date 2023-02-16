@@ -163,7 +163,7 @@ plot(coastlines_europe, add = TRUE)
 dev.off()
 
 ## Soil moisture ----
- # The data refers to the volume of water present in the first 7 cm of soil averaged over the year
+ # The data refer to the volume of water present in the first 7 cm of soil averaged over the year
 
 # Import the data
 moisture <- brick("volumetric-soil-water-layer-1_annual-mean_era5_1979-2018_v1.0.nc")
@@ -314,9 +314,15 @@ prediction <- predict(predictors, model)
 
 # Plot the model
 plot(prediction, main = "Species distribution model for Solidago canadensis in 2018")
-points(solidago_sdm, pch = 20, cex = 0.2)
+points(solidago_sdm, pch = 20, cex = 0.1)
 plot(coastlines_europe, add = TRUE)
 
+# Create pdf
+pdf("sdm_solidago_canadensis.pdf")
+plot(prediction, main = "Species distribution model for Solidago canadensis in 2018")
+points(solidago_sdm, pch = 20, cex = 0.1)
+plot(coastlines_europe, add = TRUE)
+dev.off()
 
 # Sources of the data:
 # Species dataset: https://www.gbif.org/occurrence/search?taxon_key=5389029
