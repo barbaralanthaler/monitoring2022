@@ -1,4 +1,4 @@
-# Species distribution modelling in Europe of the invasive species Solidago canadensis
+# Species distribution modelling of the invasive species Solidago canadensis in Europe 
 
 # Packages needed
 library(tidyverse) # prepare the data for analysis
