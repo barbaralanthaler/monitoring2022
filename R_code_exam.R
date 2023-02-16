@@ -302,7 +302,7 @@ solidago_sdm <- solidago_2018 %>%
 presence <- raster::extract(predictors, solidago_sdm)
 # Create "background values": points on the map in which the species is not present, for which the predictors are shown
 background <- randomPoints(predictors, 20000)
-absvals <- extract(predictors, background)
+absvals <- raster::extract(predictors, background)
 
 # Create the dataframe
 presence_background <- c(rep(1, nrow(presence)), rep(0, nrow(absvals)))
