@@ -148,7 +148,7 @@ plot(coastlines_europe, add = TRUE)
 
 # To qualitatively assess the change in temperature the difference between 2018 and 2000 is calculated and plotted
 temp_diff <- mean_temp_2018 - mean_temp_2000
-diff_temp <- colorRampPalette(c("green", "white", "yellow", "darkorange", "firebrick4"))(100)
+diff_temp <- colorRampPalette(c("lightblue", "white", "yellow", "darkorange", "firebrick4"))(100)
 plot(temp_diff, col = diff_temp, main ="Temperature difference between 2018 and 2000")
 plot(coastlines_europe, add = TRUE)
 
@@ -163,7 +163,7 @@ plot(coastlines_europe, add = TRUE)
 dev.off()
 
 ## Soil moisture ----
- # The data refer to the volume of water present in the first 7 cm of soil averaged over the year
+# The data refer to the volume of water present in the first 7 cm of soil averaged over the year
 
 # Import the data
 moisture <- brick("volumetric-soil-water-layer-1_annual-mean_era5_1979-2018_v1.0.nc")
@@ -198,7 +198,7 @@ plot(coastlines_europe, add = TRUE)
 
 # Calculate and plot the difference in mean soil moisture between 2018 and 2000
 moisture_diff <- moisture_2018 - moisture_2000
-diff_moisture <- colorRampPalette(c("darkorange1", "orange", "yellow", "white", "aquamarine", "mediumturquoise", "blue4"))(100)
+diff_moisture <- colorRampPalette(c("darkorange1", "orange", "yellow", "white", "blue", "blue3", "blue4"))(100)
 plot(moisture_diff, col = diff_moisture, main = "Soil moisture difference between 2018 and 2000")
 plot(coastlines_europe, add = TRUE)
 
@@ -213,7 +213,7 @@ plot(coastlines_europe, add = TRUE)
 dev.off()
 
 ## Precipitation ----
- # The data refer to the daily sum of precipitation
+# The data refer to the daily sum of precipitation
 
 ### Year 2000 ----
 
@@ -234,7 +234,7 @@ names(rainfall_2000)
 mean_rainfall_2000 <- mean(rainfall_2000)
 
 # Use only European data
-mean_rainfall_2000_europe <- crop(mean_rainfall_2000,extent(-15, 40, 30, 72))
+mean_rainfall_2000_europe <- crop(mean_rainfall_2000, extent(-15, 40, 30, 72))
 
 # Define the color palette
 cl_rainfall <- colorRampPalette(c("darkorange", "darkolivegreen1", "darkolivegreen", "darkslategray"))(100)
@@ -279,8 +279,8 @@ plot(coastlines_europe, add = TRUE)
 dev.off()
 
 # Third part ----
- # The third part of the project consists in creating a species distribution model for the species in 2018
-  # The data used are the distribution of the species in 2018 and the three environmental variables analysed in the second part
+# The third part of the project consists in creating a species distribution model for the species in 2018
+# The data used are the distribution of the species in 2018 and the three environmental variables analysed in the second part
 
 # The raster images of the predictors need the same resolution
 # Change the resolution to the highest present (mean_rainfall_2018_europe)
@@ -294,7 +294,7 @@ mean_temp_2018_resampled <- resample(mean_temp_2018, mean_rainfall_2018_europe, 
 predictors <- stack(mean_temp_2018_resampled, moisture_2018_resampled, mean_rainfall_2018_europe)
 names(predictors) <- c("temperature", "moisture", "rainfall")
 
-# Create a data frame with the species and predictor data
+# Create a data frame with the occurence and predictors data
 # Filter only coordinates
 solidago_sdm <- solidago_2018 %>% 
   select(decimalLongitude, decimalLatitude)
