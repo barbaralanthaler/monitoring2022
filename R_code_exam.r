@@ -72,10 +72,10 @@ solidago_planar_2000 <-
 density_map_2000 <- density(solidago_planar_2000)
 
 # Define the color palette: white represents minimum density, red maximum density
-cl <- colorRampPalette(c("white", "yellow", "orange", "red"))(100)
+cl_density <- colorRampPalette(c("white", "yellow", "orange", "red"))(100)
 
 # Plot the density map
-plot(density_map_2000, col = cl, main = "Density map of the distribution of Solidago canadensis in 2000")
+plot(density_map_2000, col = cl_density, main = "Density map of the distribution of Solidago canadensis in 2000")
 # Add the occurrence points
 points(solidago_2000, pch = 20, cex = 0.5)
 # Add the European coastlines
@@ -107,17 +107,17 @@ solidago_planar_2018 <-
       c(-15, 40),
       c(35, 72))
 density_map_2018 <- density(solidago_planar_2018)
-plot(density_map_2018, col = cl, main = "Density map of the distribution of Solidago canadensis in 2018")
+plot(density_map_2018, col = cl_density, main = "Density map of the distribution of Solidago canadensis in 2018")
 points(solidago_planar_2018, pch = 20, cex = 0.5)
 # Add the European coastlines
 plot(coastlines_europe, add = TRUE)
 
 # Export the two graphs
 pdf("density_maps.pdf")
-plot(density_map_2000, col = cl, main = "Density map of the distribution of Solidago canadensis in 2000")
+plot(density_map_2000, col = cl_density, main = "Density map of the distribution of Solidago canadensis in 2000")
 points(solidago_2000, pch = 20, cex = 0.5)
 plot(coastlines_europe, add = TRUE)
-plot(density_map_2018, col = cl, main = "Density map of the distribution of Solidago canadensis in 2018")
+plot(density_map_2018, col = cl_density, main = "Density map of the distribution of Solidago canadensis in 2018")
 points(solidago_planar_2018, pch = 20, cex = 0.5)
 plot(coastlines_europe, add = TRUE)
 dev.off()
@@ -170,7 +170,7 @@ plot(coastlines_europe, add = TRUE)
 temp_diff <- mean_temp_2018 - mean_temp_2000
 cl_temp_diff <-
   colorRampPalette(c("lightblue", "white", "yellow", "darkorange", "firebrick4"))(100)
-plot(temp_diff, col = diff_temp, main = "Temperature difference between 2018 and 2000")
+plot(temp_diff, col = cl_temp_diff, main = "Temperature difference between 2018 and 2000")
 plot(coastlines_europe, add = TRUE)
 
 # Export the graphs
@@ -179,7 +179,7 @@ plot(mean_temp_2000, col = inferno((255)), main = "Mean temperature Europe 2000"
 plot(coastlines_europe, add = TRUE)
 plot(mean_temp_2018, col = inferno((255)), main = "Mean temperature Europe 2018")
 plot(coastlines_europe, add = TRUE)
-plot(temp_diff, col = diff_temp, main = "Temperature difference between 2018 and 2000")
+plot(temp_diff, col = cl_temp_diff, main = "Temperature difference between 2018 and 2000")
 plot(coastlines_europe, add = TRUE)
 dev.off()
 
@@ -244,7 +244,7 @@ cl_moisture_diff <-
     "blue3",
     "blue4"
   ))(100)
-plot(moisture_diff, col = diff_moisture, main = "Soil moisture difference between 2018 and 2000")
+plot(moisture_diff, col = cl_moisture_diff, main = "Soil moisture difference between 2018 and 2000")
 plot(coastlines_europe, add = TRUE)
 
 # Export the graphs
@@ -253,7 +253,7 @@ plot(moisture_2000, col = cl_moisture, main = "Mean soil moisture Europe 2000")
 plot(coastlines_europe, add = TRUE)
 plot(moisture_2018, col = cl_moisture, main = "Mean soil moisture Europe 2018")
 plot(coastlines_europe, add = TRUE)
-plot(moisture_diff, col = diff_moisture, main = "Soil moisture difference between 2018 and 2000")
+plot(moisture_diff, col = cl_moisture_diff, main = "Soil moisture difference between 2018 and 2000")
 plot(coastlines_europe, add = TRUE)
 dev.off()
 
@@ -295,7 +295,7 @@ cl_rainfall <-
   ))(100)
 
 # Plot the mean precipitation in 2000
-plot(mean_rainfall_2000_europe, main = "Mean rainfall Europe 2000", col = cl_rainfall)
+plot(mean_rainfall_2000_europe, col = cl_rainfall, main = "Mean rainfall Europe 2000")
 plot(coastlines_europe, add = TRUE)
 
 ### Year 2018 ----
@@ -317,7 +317,7 @@ mean_rainfall_2018 <- mean (rainfall_2018)
 # Use only European data
 mean_rainfall_2018_europe <-
   crop(mean_rainfall_2018, extent(-15, 40, 30, 72))
-plot(mean_rainfall_2018_europe, main = "Mean rainfall Europe 2018", col = cl_rainfall)
+plot(mean_rainfall_2018_europe, col = cl_rainfall, main = "Mean rainfall Europe 2018")
 plot(coastlines_europe, add = TRUE)
 
 # Calculate and plot the difference in precipitation between 2018 and 2000
@@ -333,16 +333,16 @@ cl_precipitation_diff <-
     "blue",
     "darkblue"
   ))(100)
-plot(precipitation_diff, col = diff_prec, main = "Difference in precipitation between 2018 and 2000")
+plot(precipitation_diff, col = cl_precipitation_diff, main = "Difference in precipitation between 2018 and 2000")
 plot(coastlines_europe, add = TRUE)
 
 # Export the graphs
 pdf("rainfall.pdf")
-plot(mean_rainfall_2000_europe, main = "Mean rainfall Europe 2000", col = cl_rainfall)
+plot(mean_rainfall_2000_europe, col = cl_rainfall, main = "Mean rainfall Europe 2000")
 plot(coastlines_europe, add = TRUE)
-plot(mean_rainfall_2018_europe, main = "Mean rainfall Europe 2018", col = cl_rainfall)
+plot(mean_rainfall_2018_europe, col = cl_rainfall, main = "Mean rainfall Europe 2018")
 plot(coastlines_europe, add = TRUE)
-plot(precipitation_diff, col = diff_prec, main = "Difference in precipitation between 2018 and 2000")
+plot(precipitation_diff, col = cl_precipitation_diff, main = "Difference in precipitation between 2018 and 2000")
 plot(coastlines_europe, add = TRUE)
 dev.off()
 
