@@ -397,11 +397,18 @@ plot(prediction, main = "Species distribution model for Solidago canadensis in 2
 points(solidago_sdm, pch = 20, cex = 0.1)
 plot(coastlines_europe, add = TRUE)
 
+# Add to the predictors stack
+s1 <- stack(predictors, prediction)
+names(s1)[4] <- "model"
+plot(s1)
+
+
 # Create pdf
 pdf("sdm_solidago_canadensis.pdf")
 plot(prediction, main = "Species distribution model for Solidago canadensis in 2018")
 points(solidago_sdm, pch = 20, cex = 0.1)
 plot(coastlines_europe, add = TRUE)
+plot(s1)
 dev.off()
 
 # Sources of the data:
