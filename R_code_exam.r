@@ -15,8 +15,7 @@ setwd("/Users/barbara/exam_monitoring/")
 
 # First part ----
 
-# The aim of the first part of the project is to analyze the spread in Europe of
-# the invasive herbaceous species Solidago canadensis.
+# The aim of the first part of the project is to analyze the spread in Europe of the invasive herbaceous species Solidago canadensis.
 # In order to achieve this, occurrence data from the year 2000 and 2018 are used.
 
 ## Import the data ----
@@ -32,8 +31,7 @@ solidago <- solidago %>%
            year == 2018) %>%   # belonging to the years 2000 or 2018
   filter(basisOfRecord %in% c("HUMAN_OBSERVATION", "OBSERVATION"))  # only two types of records
 
-# Filter columns: only the columns of the coordinates and the year of observation
-# are relevant for this analysis
+# Filter columns: only the columns of the coordinates and the year of observation are relevant for this analysis
 solidago_geo <- solidago %>%
   select(decimalLongitude, decimalLatitude, year)
 
@@ -52,8 +50,7 @@ solidago_2000 <- solidago_geo %>%
 typeof(solidago_2000$decimalLongitude)
 typeof(solidago_2000$decimalLatitude)
 
-# Since they are both stored as characters, it is necessary to transform them
-# into numerical values before using them
+# Since they are both stored as characters, it is necessary to transform them into numerical values before using them
 solidago_2000$decimalLongitude <-
   as.numeric(solidago_2000$decimalLongitude)
 solidago_2000$decimalLatitude <-
@@ -65,8 +62,7 @@ solidago_planar_2000 <-
       y = solidago_2000$decimalLatitude,
       c(-15, 40),
       c(35, 72))
-# the vectors c(-15,40) and c(35,72) are used to use only data falling into the 
-# longitudinal and latitudinal range of Europe
+# The vectors c(-15,40) and c(35,72) are used to use only data falling into the  longitudinal and latitudinal range of Europe
 
 # Create the density plot of the occurrences
 density_map_2000 <- density(solidago_planar_2000)
@@ -87,8 +83,7 @@ coastlines_europe <-
 plot(coastlines_europe, add = TRUE)
 
 ### Year 2018 ----
-# To have a comparison, the same procedure is now repeated with the data for
-# the year 2018
+# To have a comparison, the same procedure is now repeated with the data for the year 2018
 
 # Create a subset containing only the data of the year 2018
 solidago_2018 <- solidago_geo %>%
@@ -123,8 +118,7 @@ plot(coastlines_europe, add = TRUE)
 dev.off()
 
 # Second part ----
-# The aim of the second part is to analyze the variation in three of the 
-# environmental variables that could favor the spread of the species
+# The aim of the second part is to analyze the variation in three of the environmental variables that could favor the spread of the species
 
 ## Air temperature ----
 # The data refer to the air temperature at 2 m above the land surface
@@ -165,8 +159,7 @@ mean_temp_2018 <- mean(temp_europe_2018)
 plot(mean_temp_2018, col = inferno((255)), main = "Mean temperature Europe 2018")
 plot(coastlines_europe, add = TRUE)
 
-# To qualitatively assess the change in temperature the difference between 2018
-# and 2000 is calculated and plotted
+# To qualitatively assess the change in temperature the difference between 2018 and 2000 is calculated and plotted
 temp_diff <- mean_temp_2018 - mean_temp_2000
 cl_temp_diff <-
   colorRampPalette(c("lightblue", "white", "yellow", "darkorange", "firebrick4"))(100)
@@ -184,8 +177,7 @@ plot(coastlines_europe, add = TRUE)
 dev.off()
 
 ## Soil moisture ----
-# The data refer to the volume of water present in the first 7 cm of soil averaged
-# over the year
+# The data refer to the volume of water present in the first 7 cm of soil averaged over the year
 
 # Import the data
 moisture <-
@@ -269,8 +261,7 @@ rainfall_1995_2010 <-
 # Inspect the data
 rainfall_1995_2010
 names(rainfall_1995_2010)
-# The file contains the data about precipitation values recorded each day
-# from 1995 to 2010
+# The file contains the data about precipitation values recorded each day from 1995 to 2010
 
 # Select only the data from 2000
 rainfall_2000 <-
@@ -347,10 +338,8 @@ plot(coastlines_europe, add = TRUE)
 dev.off()
 
 # Third part ----
-# The third part of the project consists in creating a species distribution model 
-# for the species in 2018
-# The data used are the distribution of the species in 2018 and the three 
-# environmental variables analysed in the second part
+# The third part of the project consists in creating a species distribution model for the species in 2018
+# The data used are the distribution of the species in 2018 and the three environmental variables analysed in the second part
 
 # The raster images of the predictors need the same resolution
 # Change the resolution to the highest present (mean_rainfall_2018_europe)
@@ -401,7 +390,6 @@ plot(coastlines_europe, add = TRUE)
 s1 <- stack(predictors, prediction)
 names(s1)[4] <- "model"
 plot(s1)
-
 
 # Create pdf
 pdf("sdm_solidago_canadensis.pdf")
