@@ -25,7 +25,7 @@ plot(species)
 # Subset
   # looking at all the occurrences
 species$Occurrence
-  # Subset only those points meaning presence (0)
+  # Subset only those points meaning presence (1)
 presences <- species[species$Occurrence == 1,]
 absences <- species[species$Occurrence == 0,]
 
