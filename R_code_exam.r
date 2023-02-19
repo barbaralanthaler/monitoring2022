@@ -362,11 +362,9 @@ names(predictors) <- c("temperature", "moisture", "rainfall")
 # Filter only coordinates
 solidago_sdm <- solidago_2018 %>%
   select(decimalLongitude, decimalLatitude)
-# Extract the points in which the species is present and the predictor values 
-# for those points
+# Extract the points in which the species is present and the predictor values for those points
 presence <- raster::extract(predictors, solidago_sdm)
-# Create "background values": points on the map in which the species is not
-# present, for which the predictors are shown
+# Create "background values": points on the map in which the species is not present, for which the predictors are shown
 background <- randomPoints(predictors, 20000)
 absvals <- raster::extract(predictors, background)
 
