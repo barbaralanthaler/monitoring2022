@@ -94,4 +94,4 @@ s1 <- stack(preds,p1)
 plot(s1, col=cl)
 
 # Change the names in the plot of the stack:
-names(s1) <- c('elevation', 'precipitation', 'temperature', 'vegetation', 'model')
+names(s1) <- c("elevation", "precipitation", "temperature", "vegetation", "model")
