@@ -413,7 +413,7 @@ dev.off()
 
 # Sources of the data:
 # Species dataset: https://www.gbif.org/occurrence/search?taxon_key=5389029
-# Shapefile of Europe: supplied by professor Rocchini
+# Shapefile of Europe: https://www.naturalearthdata.com/downloads/10m-physical-vectors/10m-coastline/
 # Temperature: https://cds.climate.copernicus.eu/cdsapp#!/dataset/insitu-gridded-observations-global-and-regional?tab=form
 # Soil moisture: https://cds.climate.copernicus.eu/cdsapp#!/dataset/sis-biodiversity-era5-global?tab=form
 # Precipitation: https://surfobs.climate.copernicus.eu/dataaccess/access_eobs.php
