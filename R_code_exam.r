@@ -168,7 +168,7 @@ plot(coastlines_europe, add = TRUE)
 # To qualitatively assess the change in temperature the difference between 2018
 # and 2000 is calculated and plotted
 temp_diff <- mean_temp_2018 - mean_temp_2000
-diff_temp <-
+cl_temp_diff <-
   colorRampPalette(c("lightblue", "white", "yellow", "darkorange", "firebrick4"))(100)
 plot(temp_diff, col = diff_temp, main = "Temperature difference between 2018 and 2000")
 plot(coastlines_europe, add = TRUE)
@@ -234,7 +234,7 @@ plot(coastlines_europe, add = TRUE)
 
 # Calculate and plot the difference in mean soil moisture between 2018 and 2000
 moisture_diff <- moisture_2018 - moisture_2000
-diff_moisture <-
+cl_moisture_diff <-
   colorRampPalette(c(
     "darkorange1",
     "orange",
@@ -323,7 +323,7 @@ plot(coastlines_europe, add = TRUE)
 # Calculate and plot the difference in precipitation between 2018 and 2000
 precipitation_diff <-
   mean_rainfall_2018_europe - mean_rainfall_2000_europe
-diff_prec <-
+cl_precipitation_diff <-
   colorRampPalette(c(
     "orange",
     "yellow",
